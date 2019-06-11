@@ -1,0 +1,11 @@
+--2019-06-03 19:52:37--  https://www.saiyo-dr.jp/yj/Entry/select_job.do?to=job_view
+www.saiyo-dr.jp (www.saiyo-dr.jp) をDNSに問いあわせています... 163.49.89.43, 163.49.89.47
+www.saiyo-dr.jp (www.saiyo-dr.jp)|163.49.89.43|:443 に接続しています... 接続しました。
+HTTP による接続要求を送信しました、応答を待っています... 200 OK
+長さ: 特定できません [text/html]
+`select_job.do?to=job_view' に保存中
+
+select_job.do?to=job_view     [<=>                                ]       0  --.-KB/s               select_job.do?to=job_view     [ <=>                               ]  11.53K  --.-KB/s 時間 0.005s   
+
+2019-06-03 19:52:37 (2.26 MB/s) - `select_job.do?to=job_view' へ保存終了 [11802]
+
