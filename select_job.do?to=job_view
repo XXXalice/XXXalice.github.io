@@ -1,0 +1,471 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" dir="ltr">
+
+
+
+
+
+
+
+
+
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="content-language" content="ja" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  
+  <meta name="keyword" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <title>Yahoo! JAPAN －採用情報</title>
+  <link rel="stylesheet" type="text/css" href="./css/default.css" />
+  <style type="text/css" media="screen">@import "./css/screen.css";</style>
+  <style type="text/css" media="print">@import "./css/print.css";</style>
+  <style>
+  <!--
+  body {
+    behavior:url("/yj/Entry/css/csshover.htc");
+  }
+  //-->
+  </style>
+  <script language="JavaScript" src="/dradmin/pages/js/ajax/zip2/ajaxzip2.js"></script>
+  <script language="JavaScript" src="/dradmin/pages/js/ajax/prototype.js"></script>
+  
+
+
+
+ 
+<script type="text/javascript">
+function alertException(e){
+	baseAlertException(e,"このページでスクリプトエラーが発生しました。管理者にお問い合わせください。");
+}
+
+function baseAlertException(e,message){
+	var alertmessage = message + "\n"+ e.message + "\n" + e.stack;
+	alert(alertmessage);
+}
+</script>
+
+</head>
+
+<script>
+<!--
+var fName = "./css/ie.css";
+if (navigator && navigator.appName) {
+  str = navigator.appName.toUpperCase();
+  if (str.indexOf("NETSCAPE") >= 0) {
+    fName = "./css/nn.css";
+  } else if (str.indexOf("EXPLORER") >= 0) {
+    fName = "./css/ie.css"
+  } else {
+    fName = "./css/opera.css"
+  }
+}
+document.write("<link rel='stylesheet' href='"+fName+"' type='text/css'>");
+
+var calendarContextPath = "/yj";
+
+function onLoad() {
+  if (window.onLoadExtensions) {
+    onLoadExtensions();
+  }
+  setAutoComplete();
+}
+
+function setAutoComplete() {
+    var forms = document.forms;
+    for(i = 0; i < forms.length; i++) {
+        forms[i].setAttribute("AutoComplete", "off");
+    }
+}
+
+function next() {
+ try {
+  var form = document.entryBeanForm;
+  if( validateForm(form) == false ) {
+    return false;
+  }
+  if( validateEXEntryBeanForm(form) == false ) {
+    return false;
+  }
+  getCheckboxValue();
+  return true;
+ } catch (e) {
+  alertException(e);
+  return false;
+ }
+}
+
+function back() {
+ try {
+  var form = document.entryBeanForm;
+  form.to.value = form.lastFromHistory.value;
+  getCheckboxValue();
+  return true;
+ } catch (e) {
+  alertException(e);
+  return false;
+ }
+}
+
+function getCheckboxValue() {
+  for (var i = 0; i >= 0; i++) {
+    var str = "/";
+    var flg = 0;
+    var tmp = null;
+
+    elm = document.getElementsByName("Extension[" + i + "].value");
+
+    if (elm.length > 0) {
+      for (var j = 0; j < elm.length; j++) {
+        if (elm[j].type == "checkbox" && elm[j].checked == true) {
+          if (flg == 0) {
+            tmp = elm[j];
+            flg = 1;
+          }
+          str += elm[j].value + "/";
+        }
+      }
+    } else {
+      break;
+    }
+    if (tmp != null) {
+      tmp.value = str;
+    }
+  }
+}
+
+function checkExChecked( elem ) {
+  if (elem.length == undefined) {
+    // 項目が１つの場合
+    if( elem.checked == true ) {
+       return elem.value;
+    }
+  } else {
+    // 項目が複数の場合
+    for( var i = 0; i < elem.length; i++ ) {
+      if( elem[i].checked == true ) {
+         return elem[i].value;
+      }
+    }
+  }
+  return "";
+}
+
+/*
+ * elemがdisabledであるかチェックする
+ */
+function checkExDisabled( elem ) {
+
+  if (elem.length == undefined) {
+    // 項目が１つの場合
+    if( elem.disabled == true ) {
+       return true ;
+    }
+  } else {
+    // 項目が複数の場合
+    for( var i = 0; i < elem.length; i++ ) {
+      if( elem[i].disabled  == true ) {
+         return true
+      }
+    }
+  }
+
+  return false;
+}
+
+function validateNumber(ele, itemName, message) {
+  if (ele != null) {
+    if (ele.value.match(/[^0-9]/g)) {
+      return message += ""+itemName+"は半角数値で入力してください。" + "\n";
+    }
+  }
+  return message;
+}
+function validateTelephone(ele, itemName, message) {
+  if (ele != null) {
+    if (ele.value.match(/[^0-9\-]/g)) {
+      return message += ""+itemName+"は半角数値(’-’含む)で入力してください。" + "\n";
+    }
+  }
+  return message;
+}
+function validateZip(ele, itemName, message) {
+  if (ele != null && ele.value != "" ) {
+    if (ele.value.match(/^\d{3}-\d{4}$/) == null ) {
+      return message += ""+itemName+"が不正です。" + "\n";
+    }
+  }
+  return message;
+}
+
+function validateKana(ele, itemName, message) {
+  if (ele != null) {
+    var error = false;
+    if (ele.length) {
+      for (i=0,n=ele.length;i<n;i++) {
+        if (ele[i].value.match(/[^ァ-ヶーA-Za-z]/g)) {
+          error = true;
+          break;
+        }
+      }
+    } else {
+      if (ele.value.match(/[^ァ-ヶーA-Za-z]/g)) {
+        error = true;
+      }
+    }
+    if (error) {
+      return message += ""+itemName+"は全角カナまたはアルファベット(’ー’含む)で入力してください" + "\n";
+    }
+    return message;
+  }
+}
+function validateEmail(ele, itemName, message) {
+  if (ele != null) {
+    var invalidFormat = false;
+    if (ele != null && ele.length == 2 && ele[0] != null && ele[1] != null) {
+      for (i=0,n=ele.length;i<n;i++) {
+        if (!checkEmail(ele[i].value)) {
+          invalidFormat = true;
+          break;
+        }
+      }
+      if (invalidFormat) {
+        return message += ""+itemName+"が不正です。" + "\n";
+      }
+      if (ele[0].value != ele[1].value) {
+        return message += ""+itemName+"が一致しません。" + "\n";
+      }
+    }
+    return message;
+  }
+}
+function checkEmail(emailStr) {
+               if (emailStr.length == 0) {
+                   return true;
+               }
+               var emailPat=/^(.+)@(.+)$/;
+
+               var userSpecialChars="\\(\\)<>@,;:\\\\\\\"\\[\\]";
+               var userValidChars="\[^\\s" + userSpecialChars + "\]";
+               var quotedUser="(\"[^\"]*\")";
+               var userAtom=userValidChars + '+';
+               var userWord="(" + userAtom + "|" + quotedUser + ")";
+               var userPat=new RegExp("^" + userWord + "(\\." + userWord + ")*$");
+
+               var domainSpecialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]";
+               var domainValidChars="\[^\\s" + domainSpecialChars + "\]";
+               var ipDomainPat=/^(\d{1,3})[.](\d{1,3})[.](\d{1,3})[.](\d{1,3})$/;
+               var domainAtom=domainValidChars + '+';
+               var domainPat=new RegExp("^" + domainAtom + "(\\." + domainAtom + ")*$");
+
+               var matchArray=emailStr.match(emailPat);
+               if (matchArray == null) {
+                   return false;
+               }
+               var user=matchArray[1];
+               var domain=matchArray[2];
+               if (user.match(userPat) == null) {
+                   return false;
+               }
+               var IPArray = domain.match(ipDomainPat);
+               if (IPArray != null) {
+                   for (var i = 1; i <= 4; i++) {
+                      if (IPArray[i] > 255) {
+                         return false;
+                      }
+                   }
+                   return true;
+               }
+               var domainArray=domain.match(domainPat);
+               if (domainArray == null) {
+                   return false;
+               }
+               var atomPat=new RegExp(domainAtom,"g");
+               var domArr=domain.match(atomPat);
+               var len=domArr.length;
+               if ((domArr[domArr.length-1].length < 2) ||
+                   (domArr[domArr.length-1].length > 4)) {
+                   return false;
+               }
+               if (len < 2) {
+                   return false;
+               }
+               return true;
+            }
+//-->
+</script>
+
+<script type="text/javascript" src="javascript/calendar.js"></script>
+<script type="text/javascript" src="javascript/calendarlay.js"></script>
+<script type="text/javascript" src="javascript/variableButton.js"></script>
+
+<STYLE type="text/css">
+<!--
+
+div#content div h2{
+  background:#f03b43;
+  color:#ffffff;
+}
+
+div#footer{
+  background:#999999;
+}
+div#footer p.copy{
+  color:#ffffff;
+}
+
+div#content div#rectable dl dt{
+  color:#ef9e10 !important;
+}
+div#content div#reclist dl dt{
+  color:#ef9e10 !important;
+}
+.itemtitle {
+  color:#ef9e10 !important;
+}
+table.seminar tr th {
+  color:#ef9e10 !important;
+}
+.required {
+  color: #ff0000;
+}
+-->
+</STYLE>
+
+<body id="home" class="root" onLoad="onLoad()">
+<!-- wrapper
+ =================================================== -->
+<div></div>
+<div id="wrapper">
+<!-- header (wrapper - header)
+ =================================================== -->
+<div id="header">
+<p id="logo" class="image"><img src="https://www.saiyo-dr.jp/yj/photos/hpentry/hp_entry_header"></p>
+</div><!-- header -->
+<hr class="accessibilty" />
+<!-- main (wrapper - main)
+ =================================================== -->
+<div id="main">
+
+<!-- content (wrapper - main - content)
+ =================================================== -->
+<div id="content">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script language="JavaScript">
+<!--
+  function onLoad() {
+    variableWidth(document.getElementById('variableBtn'));
+  }
+  function getForm() {
+    return document.selectJobForm;
+  }
+  function next(id) {
+    getForm().jobId.value = id;
+  }
+  function back() {
+   try {
+    getForm().to.value = getForm().lastFromHistory.value;
+    return true;
+   } catch (e) {
+    alertException(e);
+    return false;
+   }
+  }
+  function goEntry() {
+    var form = getForm();
+    form.to.value = "kiyaku";
+    form.seminarPageId.value="0";
+    form.submit();
+  }
+  function goSeminar() {
+    var form = getForm();
+    form.to.value = "seminar";
+    form.seminarPageId.value="0";
+    form.submit();
+  }
+//-->
+</script>
+
+<form name="selectJobForm" method="post" action="/yj/Entry/select_job.do;jsessionid=F8E3E33A6ACF2C54D61A04286AE2AF49" novalidate="novalidate">
+<input type="hidden" name="jobId" value="0">
+<input type="hidden" name="prefId" value="0">
+<input type="hidden" name="bunruiId" value="0">
+<input type="hidden" name="fromHistory" value="">
+<input type="hidden" name="lastFromHistory" value="">
+<input type="hidden" name="from" value="job_view">
+<input type="hidden" name="to" value="kiyaku">
+<input type="hidden" name="seminarPageId" value="0">
+
+<div id="rectable">
+  
+  
+    <div>
+      <div>
+        <dl class="AB">
+          <dt style="border-top:none;width:100%">現在募集は行っておりません。</dt>
+        </dl>
+      </div>
+    </div>
+  
+</div>
+</form>
+
+
+
+<p class="btt"><a href="#wrapper" title="Page up">Page up</a></p>
+
+</div><!-- /content -->
+
+</div><!-- /main -->
+<!-- footer (wrapper - footer)
+ =================================================== -->
+<hr class="accessibilty" />
+
+<div id="footer">
+
+<p class="copy"><script src="../photos/mypage_design/CopyRight_2019.js"></script></p>
+
+</div><!-- /footer -->
+
+</div><!-- /wrapper -->
+</body>
+</html>
